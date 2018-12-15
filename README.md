@@ -1,27 +1,24 @@
-# College Comparison Database
+# IPEDS Colleges
 
 ## Purpose
-I am interested in the topic of higher education, and would like to know more about different institutions in terms of characteristics, organizations, enrollment rate, financial aid, etc. Fortunately, IPEDS data center -- which is the National Center for Education Statistics -- would provide people with open data sources covering almost every aspects of higher education institutions, so I am looking forward to utilize those public data to build a database and create a Django app as well to demonstrate those interesting information.
+I am interested in the topic of higher education, and interested in knowing more about different institutions in terms of their characteristics, the student-faculty ratio, and enrollment percentage, etc. For this project, I am looking to build a Django app to demonstrate data of more than 5000 higher educational institutions in the US. 
 
 ## Data set
-IPEDS data center would conduct survey and release the survey results on a yearly basis, which would include a large number of datasets. After revieiwing the available data sets, I think it would be better to narrow down my project data to include the following contents:
+This project is based on the 2016 survey data from IPEDS data center. The database for my Django app mainly includes the following data sets:
 
-[Institutions info]:
-include the fundamental information about the institutions (only limited in the US), e.g:institution names, alias, geological location, zip code, etc.
+[Institution]:
+this data set contains the information of each higher educational institution, including institution name, location (city and state), student-faculty ratio and percentage of admission.
 
-[Comparison peers]: 
-include the groups of institutions that are perceived as peers by our target institutions, e.g: name, location, etc.
 
-[Fall enrollment]: 
-include information about the fall enrollment rate in 2016
-- Distance education 
-- Faculty-student ratio 
+[Graduation number by race]: 
+this data set listed the number of graduation by race
 
-[Admissions/Test Scores]: 
-contain information about the admission criteria and test scores for higher educational institutions in the US in 2016
+[Academic domain]:
+this data set listed the academic domains with the number of programs offered in relevant domain
 
 [Academic Library]: 
-contain information about the academic libraries status among all the institutions, for example, the physical collection number, digital collection number, database percentage, and digital media percentage, etc.
+this data set contain information about the academic libraries of institutions, including the type of collections and collection number in total.
+
 
 ## Data model
 

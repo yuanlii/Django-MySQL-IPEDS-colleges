@@ -1,0 +1,60 @@
+{% extends 'colleges/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  <header>
+    <h2>New Institution</h2>
+  </header>
+
+  <!-- novalidate attribute required to render validation messages -->
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.city|as_crispy_field }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.state|as_crispy_field }}
+      </div>
+    </div>
+
+
+    <!-- Restore missing fields rendered using Bootstrap rows and columns classes --> 
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.institution_name|as_crispy_field }}
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.zip_code|as_crispy_field }}
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.student_faculty_ratio|as_crispy_field }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.percent_admitted|as_crispy_field }}
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-outline-success">Add</button>
+    &nbsp;<a class="btn btn-outline-secondary" href="{% url 'institution' %}">cancel</a>
+  </form>
+
+{% endblock content %}
