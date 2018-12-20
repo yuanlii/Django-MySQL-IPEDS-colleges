@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import generic
 
-from .models import Institution
+from .models import Institution, AcademicProgram, GraduationByRace, LibraryCollectionHolding
 
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -136,13 +136,13 @@ class InstitutionUpdateView(generic.UpdateView):
 		# academic_domain
 		old_ids = AcademicProgram.objects\
 			.values_list('academic_domain_id', flat=True)\
-			.filter(instituion_id=institution.institution_id)
+			.filter(institution_id=institution.institution_id)
 
-		new_domains = form.cleaned_data['academic_domains']
+		new_domains = form.cleaned_data['academic_domain']
 		new_ids = []
 
 		for domain in new_domains:
-			new_id = academic_domain.academic_domain_id
+			new_id = domain.academic_domain_id
 			new_ids.append(new_id)
 			if new_id in old_ids:
 				continue
@@ -164,19 +164,18 @@ class InstitutionUpdateView(generic.UpdateView):
 
 		old_ids = GraduationByRace.objects\
 			.values_list('graduation_race_category_id', flat=True)\
-			.filter(instituion_id=institution.institution_id)
+			.filter(institution_id=institution.institution_id)
 
-		new_race_types = form.cleaned_data['graduation_race_type']
+		new_race_categories = form.cleaned_data['graduation_race_type']
 		
-
-		for race_type in new_race_types:
-			new_id = graduation_race_type.graduation_race_category_id
+		for race_category in new_race_categories:
+			new_id = race_category.graduation_race_category_id
 			new_ids.append(new_id)
 			if new_id in old_ids:
 				continue
 			else:
 				GraduationByRace.objects \
-					.create(institution=institution, graduation_race_type=race_type)
+					.create(institution=institution, graduation_race_category=race_category)
 
 		for old_id in old_ids:
 			if old_id in new_ids:
@@ -190,30 +189,31 @@ class InstitutionUpdateView(generic.UpdateView):
 		# LibraryCollectionHolding
 		old_ids = LibraryCollectionHolding.objects\
 			.values_list('collection_category_id', flat=True)\
-			.filter(instituion_id=institution.institution_id)
+			.filter(institution_id=institution.institution_id)
 
 		new_collection_types = form.cleaned_data['library_collection_category']
 		new_ids = []
 
 		for collection_type in new_collection_types:
-			new_id = library_collection_category.collection_category_id
+			new_id = collection_type.collection_category_id
 			new_ids.append(new_id)
 			if new_id in old_ids:
 				continue
 			else:
 				LibraryCollectionHolding.objects \
-					.create(institution=institution, library_collection_category=collection_type)
+					.create(institution=institution, collection_category=collection_type)
 
 		for old_id in old_ids:
 			if old_id in new_ids:
 				continue
 			else:
 				LibraryCollectionHolding.objects \
-					.filter(institution_id=institution.institution_id, LibraryCollectionHolding_id=old_id) \
+					.filter(institution_id=institution.institution_id, collection_category_id=old_id) \
 					.delete()
 
-		# return HttpResponseRedirect(institution.get_absolute_url())
-		return redirect('colleges/institution_detail', pk=institution.pk)
+		
+		# return redirect('colleges/institution_detail', pk=institution.pk)
+		return HttpResponseRedirect(institution.get_absolute_url())
 
 
 @method_decorator(login_required, name='dispatch')

@@ -183,14 +183,15 @@ class AcademicProgram(models.Model):
 class GraduationByRace(models.Model):
     graduation_by_race_id = models.AutoField(primary_key=True)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
-    race_category = models.ForeignKey(GraduationRaceType, on_delete=models.CASCADE)
+    graduation_race_category = models.ForeignKey(GraduationRaceType, on_delete=models.CASCADE)
     number_of_graduation = models.IntegerField(blank=True, null=True)
 
 
     class Meta:
         managed = False
         db_table = 'graduation_by_race'
-        ordering = ['institution_id','graduation_race_type__graduation_race_category_id']
+        ordering = ['institution_id','graduation_race_category_id']
+        # ordering = ['institution_id','graduation_race_type__graduation_race_category_id']
         verbose_name = 'IPEDS Institution Graduation by Race'
         verbose_name_plural = 'IPEDS Institution Graduations by Race'
 

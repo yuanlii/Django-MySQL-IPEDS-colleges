@@ -29,16 +29,18 @@ class AcademicProgramSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = AcademicProgram
-		fields = ('institution_id', 'academic_domain_id')
+		fields = ('institution_id', 'academic_domain_id', 'number_of_program_offered')
 
-#### add LibraryCollection
-class LibraryCollectionHoldingSerializer(serializers.ModelSerializer):
+
+#### TODO: add LibraryCollectionSerializer
+class GraduationByRaceSerializer(serializers.ModelSerializer):
 	institution_id = serializers.ReadOnlyField(source='institution.institution_id')
-	academic_domain_id = serializers.ReadOnlyField(source='academic_domain.academic_domain_id')
+	graduation_race_category_id = serializers.ReadOnlyField(source='academic_domain.academic_domain_id')
 
 	class Meta:
 		model = AcademicProgram
-		fields = ('institution_id', 'academic_domain_id')
+		fields = ('institution_id', 'academic_domain_id', 'number_of_program_offered')
+
 
 
 class InstitutionSerializer(serializers.ModelSerializer):
@@ -79,18 +81,8 @@ class InstitutionSerializer(serializers.ModelSerializer):
 		)
 
 	def create(self, validated_data):
-		"""
-		This method persists a new HeritageSite instance as well as adds all related
-		countries/areas to the heritage_site_jurisdiction table.  It does so by first
-		removing (validated_data.pop('heritage_site_jurisdiction')) from the validated
-		data before the new HeritageSite instance is saved to the database. It then loops
-		over the heritage_site_jurisdiction array in order to extract each country_area_id
-		element and add entries to junction/associative heritage_site_jurisdiction table.
-		:param validated_data:
-		:return: site
-		"""
-
-		# print(validated_data)
+		academic_domains = validated_data.pop('academic_program')
+		# TODO: add graduation_by_race
 
 		academic_domains = validated_data.pop('academic_program')
 		institution = Institution.objects.create(**validated_data)
@@ -101,7 +93,7 @@ class InstitutionSerializer(serializers.ModelSerializer):
 					institution_id=institution.institution_id,
 					academic_domain_id=academic_domain.academic_domain_id
 				)
-		return academic_domain
+		return institution
 
 	def update(self, instance, validated_data):
 		# site_id = validated_data.pop('heritage_site_id')
