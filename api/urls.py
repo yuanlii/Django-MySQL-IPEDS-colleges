@@ -35,10 +35,3 @@ urlpatterns = [
 	# path('schema/', schema_view)
 ]
 
-'''
-urlpatterns = [
-	path('schema/', schema_view),
-	path('sites/', views.SiteListAPIView.as_view(), name='site_api'),
-	path('sites/<int:pk>/', views.SiteDetailAPIView.as_view(), name='site_detail_api'),
-]
-'''

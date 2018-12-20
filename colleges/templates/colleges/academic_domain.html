@@ -1,0 +1,31 @@
+{% extends 'colleges/base.html' %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <article>
+      <header>
+        <h2>Academic Domains</h2>
+      </header>
+
+        {% include 'colleges/pagination.html' %}
+
+        {% if academic_domains %}
+          <div class="row">
+            <div class="col-sm-12">
+              {% for academic_domain in academic_domains %}
+                <ul>
+                    <li><a href="{% url 'country_area_detail' country.pk %}">{{ country.country_area_name }}</a></li>
+                </ul>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <p>No Heritage countries are available to view.</p>
+        {% endif %}
+        <p>Count: {{ countries.count }}</p>
+    </article>
+  {% else %}
+    <a href="{% url 'login' %}">Log in</a>
+  {% endif %}
+
+{% endblock content %}

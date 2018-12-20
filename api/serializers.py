@@ -29,7 +29,16 @@ class AcademicProgramSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = AcademicProgram
-		fields = ('institution_id', 'academic_domain_id',)
+		fields = ('institution_id', 'academic_domain_id')
+
+#### add LibraryCollection
+class LibraryCollectionHoldingSerializer(serializers.ModelSerializer):
+	institution_id = serializers.ReadOnlyField(source='institution.institution_id')
+	academic_domain_id = serializers.ReadOnlyField(source='academic_domain.academic_domain_id')
+
+	class Meta:
+		model = AcademicProgram
+		fields = ('institution_id', 'academic_domain_id')
 
 
 class InstitutionSerializer(serializers.ModelSerializer):
@@ -43,7 +52,7 @@ class InstitutionSerializer(serializers.ModelSerializer):
 	state_id = serializers.CharField(
 		allow_blank=True
 	)
-	zip_code = serializers.IntegerField(
+	zip_code = serializers.CharField(
 		allow_null=True
 	)
 	student_faculty_ratio = serializers.DecimalField(
@@ -130,8 +139,6 @@ class InstitutionSerializer(serializers.ModelSerializer):
 		old_ids = academic_program.objects \
 			.values_list('academic_domain_id', flat=True) \
 			.filter(institution_id__exact=institution_id)
-
-		# TODO Insert may not be required (Just return instance)
 
 		# Insert new unmatched AcademicProgram entries
 		for academic_domain in new_academic_domains:

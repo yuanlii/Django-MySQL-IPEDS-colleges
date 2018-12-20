@@ -4,13 +4,33 @@
 
 {% block content %}
 
-  <header>
-    <h2>New Institution</h2>
-  </header>
+<header>
+  <div class="row">
+    <div class="col-sm-11">
+      <h2>New Institution</h2>
+    </div>
+    <div class="col-xs-1">
+      <a class="btn btn-outline-secondary" href="{{request.META.HTTP_REFERER}}">back</a>
+    </div>
+  </div>
+</header>
 
   <!-- novalidate attribute required to render validation messages -->
   <form method="post" novalidate>
     {% csrf_token %}
+
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.institution_name|as_crispy_field }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.unitid|as_crispy_field }}
+      </div>
+    </div>
 
     <div class="row">
       <div class="col-6">
@@ -24,22 +44,17 @@
       </div>
     </div>
 
-
-    <!-- Restore missing fields rendered using Bootstrap rows and columns classes --> 
-
-    <div class="row">
-      <div class="col-6">
-        {{ form.institution_name|as_crispy_field }}
-      </div>
-    </div>
-
-
     <div class="row">
       <div class="col-6">
         {{ form.zip_code|as_crispy_field }}
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-6">
+        {{ form.survey_year|as_crispy_field }}
+      </div>
+    </div>
 
     <div class="row">
       <div class="col-6">
@@ -52,6 +67,25 @@
         {{ form.percent_admitted|as_crispy_field }}
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.academic_domain|as_crispy_field }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.graduation_race_type|as_crispy_field }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.library_collection_category|as_crispy_field }}
+      </div>
+    </div>
+
 
     <button type="submit" class="btn btn-outline-success">Add</button>
     &nbsp;<a class="btn btn-outline-secondary" href="{% url 'institution' %}">cancel</a>

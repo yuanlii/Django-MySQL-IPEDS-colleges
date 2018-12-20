@@ -6,6 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.urls import reverse
 
 class AcademicDomain(models.Model):
     academic_domain_id = models.AutoField(primary_key=True)
@@ -20,7 +21,7 @@ class AcademicDomain(models.Model):
         verbose_name_plural = 'IPEDS Academic Program Domains'
 
     def __str__(self):
-        return self.cipcode
+        return str(self.cipcode)
 
 
 class GraduationRaceType(models.Model):
@@ -86,7 +87,7 @@ class State(models.Model):
 # add many-to-many relationship inside
 class Institution(models.Model):
     institution_id = models.AutoField(primary_key=True)
-    unitid = models.IntegerField(unique=True, blank=True, null=True)
+    unitid = models.IntegerField(unique=True, null=True)
     institution_name = models.CharField(max_length=255)
     survey_year = models.CharField(max_length=4)
     zip_code = models.CharField(max_length=255, blank=True, null=True)
@@ -96,9 +97,9 @@ class Institution(models.Model):
     city = models.ForeignKey(City, on_delete=models.PROTECT)
     state = models.ForeignKey(State, on_delete=models.PROTECT)
 
-    academic_domain = models.ManyToManyField(AcademicDomain, through='AcademicProgram')
-    graduation_race_type = models.ManyToManyField(GraduationRaceType, through='GraduationByRace')
-    library_collection_category = models.ManyToManyField(LibraryCollectionCategory, through='LibraryCollectionHolding')
+    academic_domain = models.ManyToManyField(AcademicDomain, through='AcademicProgram', related_name='institution_domains')
+    graduation_race_type = models.ManyToManyField(GraduationRaceType, through='GraduationByRace',related_name='institution_races')
+    library_collection_category = models.ManyToManyField(LibraryCollectionCategory, through='LibraryCollectionHolding',related_name='institution_libraries')
 
     class Meta:
         managed = False
@@ -134,7 +135,7 @@ class Institution(models.Model):
     
 
     @property
-    def graduation_race_type_names(self): # ORM query need fix
+    def graduation_race_type_names(self): 
         graduation_race_types = self.graduation_race_type.objects.all().order_by('race_category_name')
 
         names = []
@@ -150,7 +151,7 @@ class Institution(models.Model):
 
     
     @property
-    def library_collection_category_names(self):  # ORM query need fix
+    def library_collection_category_names(self):  
         library_collection_categories = self.library_collection_category.objects.all().order_by('collection_category_name')
 
         names = []
@@ -179,17 +180,17 @@ class AcademicProgram(models.Model):
         verbose_name_plural = 'IPEDS Academic Programs Offered by Domains'
 
 
-
 class GraduationByRace(models.Model):
     graduation_by_race_id = models.AutoField(primary_key=True)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
     race_category = models.ForeignKey(GraduationRaceType, on_delete=models.CASCADE)
     number_of_graduation = models.IntegerField(blank=True, null=True)
 
+
     class Meta:
         managed = False
         db_table = 'graduation_by_race'
-        ordering = ['institution_id','race_category_id']
+        ordering = ['institution_id','graduation_race_type__graduation_race_category_id']
         verbose_name = 'IPEDS Institution Graduation by Race'
         verbose_name_plural = 'IPEDS Institution Graduations by Race'
 
@@ -197,7 +198,7 @@ class GraduationByRace(models.Model):
 class LibraryCollectionHolding(models.Model):
     library_collection_holding_id = models.AutoField(primary_key=True)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
-    collection_category_id = models.ForeignKey(LibraryCollectionCategory, on_delete=models.CASCADE)
+    collection_category = models.ForeignKey(LibraryCollectionCategory, on_delete=models.CASCADE)
     number_of_total_collection = models.IntegerField()
 
     class Meta:

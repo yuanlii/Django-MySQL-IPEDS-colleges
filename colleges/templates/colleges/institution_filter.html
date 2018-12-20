@@ -34,18 +34,18 @@
         <h4><a href="{% url 'institution_detail' institution.pk %}">{{ institution.institution_name.strip }}</a></h4>
         
         <!-- add the country_area_names and description template tags -->
-        {% if institution.city_id %}
+        {% if institution.city %}
         <div class="row">
             <div class="col-sm-10">
-            {{ institution.city_id }}
+            {{ institution.city }}
             </div>
         </div>
         {% endif %}
 
-        {% if institution.state_id %}
+        {% if institution.state %}
         <div class="row">
             <div class="col-sm-10">
-            {{institution.state_id | safe}}
+            {{institution.state | safe}}
             </div>
         </div>
         {% endif %}

@@ -24,6 +24,14 @@
 
   <div class="row">
     <div class="col-6">
+      {{ form.unitid|as_crispy_field }}
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-6">
       {{ form.city|as_crispy_field }}
     </div>
   </div>
@@ -42,6 +50,13 @@
 
   <div class="row">
     <div class="col-6">
+      {{ form.survey_year|as_crispy_field }}
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-6">
       {{ form.student_faculty_ratio|as_crispy_field }}
     </div>
   </div>
@@ -51,6 +66,25 @@
       {{ form.percent_admitted|as_crispy_field }}
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-6">
+      {{ form.academic_domain|as_crispy_field }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      {{ form.graduation_race_type|as_crispy_field }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      {{ form.library_collection_category|as_crispy_field }}
+    </div>
+  </div>
+
 
 
   <!-- Restore missing fields rendered using Bootstrap rows and columns classes --> 

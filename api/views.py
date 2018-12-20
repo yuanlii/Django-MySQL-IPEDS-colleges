@@ -11,13 +11,13 @@ class InstitutionViewSet(viewsets.ModelViewSet):
 	"""
 	This ViewSet provides both 'list' and 'detail' views.
 	"""
-	queryset = Institution.objects.select_related('academic_domain').order_by('institution_name')
+	queryset = Institution.objects.all().order_by('institution_name')
 	serializer_class = InstitutionSerializer
 	permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 	def delete(self, request, pk, format=None):
-		site = self.get_object(pk)
-		self.perform_destroy(self, site)
+		institution = self.get_object(pk)
+		self.perform_destroy(self, institution)
 
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
