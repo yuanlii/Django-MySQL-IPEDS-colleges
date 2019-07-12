@@ -91,15 +91,33 @@ class Institution(models.Model):
     institution_name = models.CharField(max_length=255)
     survey_year = models.CharField(max_length=4)
     zip_code = models.CharField(max_length=255, blank=True, null=True)
-    student_faculty_ratio = models.DecimalField(max_digits=10, decimal_places=0)
-    percent_admitted = models.DecimalField(max_digits=10, decimal_places=0)
+
+    student_faculty_ratio = models.IntegerField()
+    # student_faculty_ratio = models.DecimalField(max_digits=10, decimal_places=0)
+    percent_admitted = models.IntegerField()
+    # percent_admitted = models.DecimalField(max_digits=10, decimal_places=0)
 
     city = models.ForeignKey(City, on_delete=models.PROTECT)
     state = models.ForeignKey(State, on_delete=models.PROTECT)
 
-    academic_domain = models.ManyToManyField(AcademicDomain, through='AcademicProgram', related_name='institution_domains')
-    graduation_race_type = models.ManyToManyField(GraduationRaceType, through='GraduationByRace',related_name='institution_races')
-    library_collection_category = models.ManyToManyField(LibraryCollectionCategory, through='LibraryCollectionHolding',related_name='institution_libraries')
+    academic_domain = models.ManyToManyField(
+        AcademicDomain,
+        through='AcademicProgram',
+        blank=True,
+        related_name='institution_domains'
+    )
+    graduation_race_type = models.ManyToManyField(
+        GraduationRaceType,
+        through='GraduationByRace',
+        blank=True,
+        related_name='institution_races'
+    )
+    library_collection_category = models.ManyToManyField(
+        LibraryCollectionCategory,
+        through='LibraryCollectionHolding',
+        blank=True,
+        related_name='institution_libraries'
+    )
 
     class Meta:
         managed = False

@@ -42,7 +42,6 @@ class GraduationByRaceSerializer(serializers.ModelSerializer):
 		fields = ('institution_id', 'academic_domain_id', 'number_of_program_offered')
 
 
-
 class InstitutionSerializer(serializers.ModelSerializer):
 	institution_name = serializers.CharField(
 		allow_blank=False,
@@ -57,16 +56,22 @@ class InstitutionSerializer(serializers.ModelSerializer):
 	zip_code = serializers.CharField(
 		allow_null=True
 	)
-	student_faculty_ratio = serializers.DecimalField(
-		allow_null=True,
-		max_digits=11,
-		decimal_places=8)
-
-	percent_admitted = serializers.DecimalField(
-		allow_null=True,
-		max_digits=10,
-		decimal_places=8
+	student_faculty_ratio = serializers.IntegerField(
+		allow_null=True
 	)
+	# student_faculty_ratio = serializers.DecimalField(
+	# 	allow_null=True,
+	# 	max_digits=11,
+	# 	decimal_places=8)
+	#
+	percent_admitted = serializers.IntegerField(
+		allow_null=True
+	)
+	# percent_admitted = serializers.DecimalField(
+	# 	allow_null=True,
+	# 	max_digits=10,
+	# 	decimal_places=8
+	# )
 
 	class Meta:
 		model = Institution
@@ -128,7 +133,7 @@ class InstitutionSerializer(serializers.ModelSerializer):
 
 		# If any existing AcademicProgram are not in updated list, delete them
 		new_ids = []
-		old_ids = academic_program.objects \
+		old_ids = AcademicProgram.objects \
 			.values_list('academic_domain_id', flat=True) \
 			.filter(institution_id__exact=institution_id)
 
@@ -139,7 +144,7 @@ class InstitutionSerializer(serializers.ModelSerializer):
 			if new_id in old_ids:
 				continue
 			else:
-				academic_program.objects \
+				AcademicProgram.objects \
 					.create(institution_id=institution_id, academic_domain_id=new_id)
 
 		# Delete old unmatched AcademicProgram entries

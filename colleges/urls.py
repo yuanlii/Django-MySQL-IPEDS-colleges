@@ -6,6 +6,7 @@ urlpatterns = [
     path('about/', views.AboutPageView.as_view(), name='about'),
 
     path('institutions/', views.InstitutionListView.as_view(), name='institution'),
+    path('institutions/search/', views.InstitutionFilterView.as_view(), name='institution_search'),
     path('institutions/<int:pk>/', views.InstitutionDetailView.as_view(), name='institution_detail'),
 
     path('institutions/new/', views.InstitutionCreateView.as_view(), name='institution_new'),
