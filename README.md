@@ -6,17 +6,13 @@ I am interested in the topic of higher education, and interested in knowing more
 ## Dataset
 This project is based on the 2016 survey data from IPEDS data center. The database for my Django app mainly includes the following data sets:
 
-- Institution
-  - this data set contains the information of each higher educational institution, including institution name, location (city and state), student-faculty ratio and percentage of admission.
+- Institution - this data set contains the information of each higher educational institution, including institution name, location (city and state), student-faculty ratio and percentage of admission.
 
-- Graduation number by race
-  - this data set listed the number of graduation by race
+- Graduation number by race - this data set listed the number of graduation by race
 
-- Academic domain
-  - this data set listed the academic domains with the number of programs offered in relevant domain
+- Academic domain - this data set listed the academic domains with the number of programs offered in relevant domain
 
-- Academic Library
-  - this data set contain information about the academic libraries of institutions, including the type of collections and collection number in total.
+- Academic Library - this data set contain information about the academic libraries of institutions, including the type of collections and collection number in total.
 
 
 ## Data model
