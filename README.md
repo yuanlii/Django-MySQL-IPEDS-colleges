@@ -22,7 +22,10 @@ this data set contain information about the academic libraries of institutions, 
 
 ## Data model
 
-see static/img folder
+The data model that I designed looks as below:
+
+![data model](https://github.com/yuanlii/MySQL-IPEDS-colleges/blob/master/static/img/data_model.png)
+
 
 ## Package Dependencies
 
