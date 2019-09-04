@@ -43,7 +43,6 @@ class InstitutionDetailView(generic.DetailView):
 	template_name = 'colleges/institution_detail.html'
 
 
-# fix this ###############
 @method_decorator(login_required, name='dispatch')
 class GraduationRaceTypeListView(generic.ListView):
 	model = 'GraduationRaceType'
