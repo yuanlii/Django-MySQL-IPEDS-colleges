@@ -1,4 +1,4 @@
-# IPEDS Colleges Database
+# IPEDS University Checker
 
 ## Purpose
 I am interested in the topic of higher education, and interested in knowing more about different institutions in terms of their characteristics, the student-faculty ratio, and enrollment percentage, etc. For this project, I am looking to build a Django app to demonstrate data of more than 5000 higher educational institutions in the US. 
