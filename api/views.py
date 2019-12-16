@@ -1,10 +1,9 @@
-
-
 from django.shortcuts import render
 from colleges.models import Institution, AcademicProgram
 from api.serializers import InstitutionSerializer
 from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
+
 
 
 class InstitutionViewSet(viewsets.ModelViewSet):

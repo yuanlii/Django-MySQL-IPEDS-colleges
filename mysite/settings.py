@@ -107,6 +107,16 @@ DATABASES = {
         'OPTIONS': {
             'read_default_file': '/etc/mysql/my.cnf',
         },
+        
+        # 'ENGINE': secrets.ENGINE,
+        # 'HOST': secrets.HOST,
+        # 'NAME': secrets.NAME,
+        # 'USER': secrets.USER,
+        # 'PASSWORD': secrets.PASSWORD,
+        # 'PORT': secrets.PORT,
+        # 'OPTIONS': {
+        #     'sslmode': 'require',
+        # }
     }
 }
 
@@ -188,11 +198,14 @@ REST_FRAMEWORK = {
 	    'rest_framework.permissions.IsAuthenticatedOrReadOnly'
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'PAGE_SIZE': 10
 }
 
+
+
 CORS_ORIGIN_WHITELIST = (
-    # 'https://127.0.0.1:3000/'
+    # '127.0.0.1:3000/',
     'http://localhost:3000',
     'http://localhost:8000',
     'http://localhost:8080',
